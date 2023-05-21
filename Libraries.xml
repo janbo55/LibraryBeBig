@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LibraryRoom>
+  <Room>1</Room>
+  <RoomName>Room A</RoomName>
+  <Rows>
+    <LibraryRoomRows>
+      <Row>1</Row>
+      <Shelves>
+        <RoomRowShelves>
+          <Shelf>1</Shelf>
+          <LibraryItems>
+            <Book>
+              <ISBN>1234567890</ISBN>
+              <Title>Book Title 1</Title>
+              <Authors>
+                <Author>Author 1</Author>
+                <Author>Author 2</Author>
+              </Authors>
+              <NumberOfPages>200</NumberOfPages>
+              <Publisher>Publisher 1</Publisher>
+              <PublishYear>2022</PublishYear>
+            </Book>
+            <Book>
+              <ISBN>0987654321</ISBN>
+              <Title>Book Title 2</Title>
+              <Authors>
+                <Author>Author 3</Author>
+              </Authors>
+              <NumberOfPages>150</NumberOfPages>
+              <Publisher>Publisher 2</Publisher>
+              <PublishYear>2020</PublishYear>
+            </Book>
+          </LibraryItems>
+        </RoomRowShelves>
+        <RoomRowShelves>
+          <Shelf>2</Shelf>
+          <LibraryItems>
+            <Disk>
+              <ISBN>2468135790</ISBN>
+              <Title>Disk Title 1</Title>
+              <NumberOfTracks>10</NumberOfTracks>
+              <Content>
+                <Artist>Artist 1</Artist>
+                <TrackTitle>Track 1</TrackTitle>
+                <Duration>00:05:30</Duration>
+                <ContentType>0</ContentType>
+              </Content>
+              <Content>
+                <Artist>Artist 2</Artist>
+                <TrackTitle>Track 2</TrackTitle>
+                <Duration>00:03:45</Duration>
+                <ContentType>1</ContentType>
+              </Content>
+            </Disk>
+          </LibraryItems>
+        </RoomRowShelves>
+      </Shelves>
+    </LibraryRoomRows>
+  </Rows>
+</LibraryRoom>

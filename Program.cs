@@ -1,4 +1,6 @@
-﻿namespace LibraryBeBig
+﻿using System.Xml;
+
+namespace LibraryBeBig
 {
     public class Program
     {
@@ -7,14 +9,14 @@
         {
             Program library = new Program();
 
-            library.startLibrary();
+            library.xmlTest();
+
+            //library.startLibrary();
         }
 
         public void startLibrary()
         {
             Program library = new Program();
-
-            rooms = Rooms();
 
             Console.WriteLine("Welcome to the LibraryBeBig Library. It's so far very small with just 1 room, 1 shelf, and just 1 row. (Really, we couldn't afford anymore?");
             Console.WriteLine();
@@ -33,7 +35,7 @@
                 //See the current books
                 if (userChoice == 0)
                 {
-                    library.PrintLibraryData(rooms, 1, 1, 1);
+                    library.PrintLibraryData(rooms);
                 }
                 //Add a book
                 else if (userChoice == 1)
@@ -160,7 +162,7 @@
         }
 
         //0 Overview
-        public void PrintLibraryData(List<LibraryRoom> rooms, int roomNumber, int rowNumber, int shelfNumber)
+        public void PrintLibraryData(List<LibraryRoom> rooms)
         {
             try
             {
@@ -306,6 +308,7 @@
             // Add the book to the LibraryItems collection
             shelf.LibraryItems.Add(book);
 
+
             Console.WriteLine("Book added successfully.");
             Console.WriteLine();
         }
@@ -320,6 +323,86 @@
         public void FindBook(List<LibraryRoom> libraryRooms, int roomNumber, int rowNumber, int shelfNumber)
         {
             Console.WriteLine("");
+        }
+
+
+
+        public void xmlTest()
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load("C:\\Users\\Jannick Danielsen\\source\\repos\\LibraryBeBig\\Libraries.xml"); // Replace with the actual path to your XML file
+
+            // Access the library room data
+            XmlNodeList roomNodes = xmlDoc.SelectNodes("LibraryRoom");
+            foreach (XmlNode roomNode in roomNodes)
+            {
+                // Access room information
+                int roomNumber = int.Parse(roomNode.SelectSingleNode("Room").InnerText);
+                string roomName = roomNode.SelectSingleNode("RoomName").InnerText;
+                Console.WriteLine("Room: " + roomNumber + " - " + roomName);
+
+                // Access the rows in the room
+                XmlNodeList rowNodes = roomNode.SelectNodes("Rows/LibraryRoomRows");
+                foreach (XmlNode rowNode in rowNodes)
+                {
+                    // Access row information
+                    int rowNumber = int.Parse(rowNode.SelectSingleNode("Row").InnerText);
+                    Console.WriteLine("Row: " + rowNumber);
+
+                    // Access the shelves in the row
+                    XmlNodeList shelfNodes = rowNode.SelectNodes("Shelves/RoomRowShelves");
+                    foreach (XmlNode shelfNode in shelfNodes)
+                    {
+                        // Access shelf information
+                        int shelfNumber = int.Parse(shelfNode.SelectSingleNode("Shelf").InnerText);
+                        Console.WriteLine("Shelf: " + shelfNumber);
+
+                        // Access the library items in the shelf
+                        XmlNodeList libraryItemNodes = shelfNode.SelectNodes("LibraryItems/*");
+                        foreach (XmlNode libraryItemNode in libraryItemNodes)
+                        {
+                            // Access library item information based on the node name
+                            if (libraryItemNode.Name == "Book")
+                            {
+
+                                XmlNodeList BookNodes = shelfNode.SelectNodes("Book/*");
+                                List<string> BookAuthors = new List<string>();
+
+
+
+
+                                string isbn = libraryItemNode.SelectSingleNode("ISBN").InnerText;
+                                string title = libraryItemNode.SelectSingleNode("Title").InnerText;
+
+
+                                foreach (XmlNode Authors in BookNodes)
+                                {
+                                    XmlNodeList author = Authors.
+                                    
+                                }
+
+
+                                //Console.WriteLine(@"Book ISBN: " + isbn);
+                                //Console.WriteLine(@"Book Title: " + title);
+                                //Console.WriteLine($"      Authors: {string.Join(", ", book.Authors)}");
+                                //Console.WriteLine($"      Number of Pages: {book.NumberOfPages}");
+                                //Console.WriteLine($"      Publisher: {book.Publisher}");
+                                //Console.WriteLine($"      Publish Year: {book.PublishYear}");
+                            }
+                            else if (libraryItemNode.Name == "Disk")
+                            {
+                                string isbn = libraryItemNode.SelectSingleNode("ISBN").InnerText;
+                                string title = libraryItemNode.SelectSingleNode("Title").InnerText;
+                                Console.WriteLine("Disk ISBN: " + isbn);
+                                Console.WriteLine("Disk Title: " + title);
+                                // Access other disk properties...
+                            }
+                            // Handle other library item types if needed...
+                        }
+                    }
+                }
+            }
+            
         }
     }
 
@@ -422,4 +505,6 @@
     }
 
     #endregion Library
+
+    
 }
